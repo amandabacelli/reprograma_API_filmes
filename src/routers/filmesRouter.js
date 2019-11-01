@@ -5,6 +5,6 @@ const controller = require('../controllers/filmesController')
 
 router.get('/', controller.get)
 router.get('/:diretor', controller.getDiretor)
-router.get('/:genero', controller.getGenero)
+router.get('/genero/:genre', controller.getGenero)
 
 module.exports = router
