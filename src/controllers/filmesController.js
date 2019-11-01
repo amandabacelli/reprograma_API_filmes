@@ -10,8 +10,16 @@ exports.getDiretor = (req,res) => {
 }
 
 exports.getGenero = (req,res) => {
-    const genre = req.params.genero
-    genre = filmes.genre
-    const findGenero = (genre.map(element => element.genre))
-    return res.status(200).send(findGenero)
+    const tipoGenero = req.params.genero
+    let listaGenero = []
+    for(let i = 0; i < filmes.length; i++){
+        for(let j = 0; j < filmes[i].genre.length; j++) {
+            if(filmes[i].genre[j] === tipoGenero){
+                listaGenero.push(filmes[i]) 
+            }
+        }               
+        
+    }
+    console.log(listaGenero)
+    return res.status(200).send(listaGenero)
 }
