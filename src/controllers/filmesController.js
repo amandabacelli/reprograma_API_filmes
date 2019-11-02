@@ -1,4 +1,7 @@
+//params são variáveis
+
 const filmes = require ('../models/filmes.json')
+const fs = require('fs')
 
 exports.get = (req,res) => {
     return res.status(200).send(filmes)
@@ -20,6 +23,26 @@ exports.getGenero = (req,res) => {
         }               
         
     }
-    console.log(listaGenero)
     return res.status(200).send(listaGenero)
 }
+
+//segunda forma do for - includes varre a array procurando uma string especifica
+//const tipoGenero = req.params.genre
+//const listaFilmes = filmes.filter(e => e.genre.includes(tipoGenero))
+exports.post = (req,res) => {
+    const { title, year, director, duration, genre, rate } = req.body
+    filmes.push({ title, year, director, duration, genre, rate })
+    
+
+    fs.writeFile(".\src\models\filmes.json", JSON.stringify(filmes), 'utf8', function(err) {
+        if(err){
+            return res.status(500).send({message: err}) 
+        }
+        console.log("filme gravado")
+        
+    })
+    return res.status(201).send(filmes)
+
+    
+}
+
